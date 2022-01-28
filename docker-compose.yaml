@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.1'
 
 services:
     websocket:
@@ -8,6 +8,49 @@ services:
         ports:
             - "8080:8080"
         command: php /var/www/html/src/chat-server.php
+        networks:
+            - websockets
+
+    php:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - '5555:80'
+        env_file:
+            - .env
+            # - .env.local
+        volumes:
+            - ./app:/var/www/html
+        networks:
+            - websockets
+
+    db:
+        image: 'mariadb:10.6.4'
+        restart: always
+        environment:
+            # See .env file
+            # MYSQL_DATABASE: data
+            # MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        env_file:
+            - .env
+            # - .env.local
+        volumes:
+            # Pour lancer un dump automatiquement au montage du conteneur
+            - ./database/starterDump.sql:/docker-entrypoint-initdb.d/starterDump.sql
+        networks:
+            - websockets
+
+
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+            - '5556:80'
+        environment:
+            - PMA_ARBITRARY=1
         networks:
             - websockets
 
