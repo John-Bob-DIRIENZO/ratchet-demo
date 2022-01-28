@@ -1,0 +1,17 @@
+{
+    "name": "jean-francois/websocket",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "John-Bob-DIRIENZO",
+            "email": "jf.dirienzo@gmail.com"
+        }
+    ],
+    "require": {
+        "cboden/ratchet": "^0.4.4"
+    }
+}

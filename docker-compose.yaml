@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+    websocket:
+        image: php:8.1.2-cli
+        volumes:
+            - ./websocket:/var/www/html
+        ports:
+            - "8080:8080"
+        command: php /var/www/html/src/chat-server.php
+        networks:
+            - websockets
+
+networks:
+    websockets:
+        driver: bridge
