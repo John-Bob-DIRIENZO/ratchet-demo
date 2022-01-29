@@ -20,7 +20,7 @@ use App\Entity\User;
 <?php if (AuthHelper::isLoggedIn()) : ?>
     <h2>Le chat</h2>
 
-    <div id="messages"></div>
+    <div id="messages" data-user="<?= AuthHelper::getLoggedUser()->getFirstName(); ?>"></div>
 
     <form>
         <input type="text" id="message" class="form-control mb-3">
